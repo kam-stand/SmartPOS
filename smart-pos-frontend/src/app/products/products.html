@@ -1,0 +1,31 @@
+
+@if (productList.length == 0) {
+    <div>
+        <h1>Currently no products created</h1>
+    </div>
+}
+
+@else {
+    @for (product of productList; track product.id) {
+        <div class="product-container">
+                <div class="product-info">
+                    <div>
+                        {{product.name}}
+                    </div>
+                    <div>
+                        {{product.brand}}
+                    </div>
+                    <div>
+                        {{product.price}}
+                    </div>
+                    <div>
+                        {{product.description}}
+                    </div>
+                    <div>
+                        {{product.category}}
+                    </div>
+                </div>
+        </div>
+
+    }
+}
