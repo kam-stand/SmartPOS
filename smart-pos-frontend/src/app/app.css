@@ -34,3 +34,9 @@
     display: flex;
     justify-content: center;
 }
+
+.app-nav div:hover{
+    background-color: white;
+    border: 1px solid black;
+    color: dodgerblue;
+}

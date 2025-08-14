@@ -1,8 +1,6 @@
 import { Component, signal } from '@angular/core';
 
-interface product {
-  
-}
+
 @Component({
   selector: 'app-root',
   imports: [],
@@ -11,5 +9,14 @@ interface product {
 })
 export class App {
   protected readonly title = signal('smart-pos-frontend');
+
+  view:string = "default";
+
+  changeView(option:string){
+    
+    this.view = option;
+  console.log("the view is: " + this.view)
+    
+  }
 
 }

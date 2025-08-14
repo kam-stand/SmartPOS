@@ -3,14 +3,27 @@
     <h1>SmartPOS</h1>
   </div>
   <div class="app-nav">
-    <div>
+    <div (click)="changeView('products')">
       <h2>Products</h2>
     </div>
-    <div>
+    <div (click)="changeView('orders')">
       <h2>Orders</h2>
     </div>
   </div>
   <div class="app-view">
-
+    @switch (view) {
+      @case ("products") {
+        <!-- Content for the Products view goes here -->
+        <p>This is the Products section.</p>
+      }
+      @case ("orders") {
+        <!-- Content for the Orders view goes here -->
+        <p>This is the Orders section.</p>
+      }
+      @default {
+        <!-- Optional: A default view if nothing matches -->
+        <p>Select a view from the navigation.</p>
+      }
+    }
   </div>
 </div>
