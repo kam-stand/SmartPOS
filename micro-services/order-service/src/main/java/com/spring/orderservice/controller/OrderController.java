@@ -19,7 +19,7 @@ public class OrderController {
     }
 
 
-    @PostMapping
+    @PostMapping("")
     public String createOrder(@RequestBody Order order) {
         return orderService.processOrder(order);
     }

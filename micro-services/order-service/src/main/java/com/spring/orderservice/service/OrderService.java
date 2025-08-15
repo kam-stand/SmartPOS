@@ -25,6 +25,6 @@ public class OrderService {
             return transaction_id;
         }
 
-        return "Order Processed Successfully";
+        return "Order Processed Successfully" + transaction_id  + "Credit card info: " + order.getPayment();
     }
 }
