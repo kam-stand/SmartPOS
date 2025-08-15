@@ -9,21 +9,26 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: true   # enable dynamic routing from Eureka
+          enabled: true   # Enable dynamic routing from Eureka
       routes:
         - id: product-service
           uri: lb://PRODUCT-SERVICE
           predicates:
             - Path=/products/**
-      
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOriginPatterns: "*"   # ✅ Use patterns, not origins
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true       # ✅ Allowed with patterns
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
-
-cors:
-  allowed-origins: "*"
-  allowed-methods: "*"
-  allowed-headers: "*"
-  allow-credentials: true

@@ -1,31 +1,47 @@
-
 @if (productList.length == 0) {
+<div>
+  <h1>Currently no products created</h1>
+</div>
+} @else {
+<div class="product-container">
+  @for (product of productList; track product.id) {
+  <div class="product-info">
+    <div>{{ product.id }}</div>
+    <div>{{ product.name }}</div>
+    <div>{{ product.brand }}</div>
+    <div>${{ product.price }}</div>
+    <div>{{ product.description }}</div>
+    <div>{{ product.category }}</div>
     <div>
-        <h1>Currently no products created</h1>
+      <button class="add-to-cart-btn" (click)="addToCart(product)">+</button>
     </div>
-}
+    <div>
+      <button class="remove-to-cart-btn" (click)="removeFromCart(product)">-</button>
+    </div>
+  </div>
 
-@else {
-    @for (product of productList; track product.id) {
-        <div class="product-container">
-                <div class="product-info">
-                    <div>
-                        {{product.name}}
-                    </div>
-                    <div>
-                        {{product.brand}}
-                    </div>
-                    <div>
-                        {{product.price}}
-                    </div>
-                    <div>
-                        {{product.description}}
-                    </div>
-                    <div>
-                        {{product.category}}
-                    </div>
-                </div>
-        </div>
+  }
+</div>
 
+  <div class="cart-section">
+    <h2>Cart</h2>
+    @if (cart.size === 0) {
+      <div class="empty-cart-message">Your cart is empty.</div>
+    } @else {
+      <div class="cart-items-container">
+        @for (item of cartItems; track item[0].id) {
+          <div class="cart-item">
+            <div>{{ item[0].name }}</div>
+            <div>Per: ${{ item[0].price | number : '1.2-2' }}</div> 
+            <div>Qty: {{ item[1] }}</div> 
+            <div>Total: ${{ (item[0].price * item[1]) | number : '1.2-2' }}</div>
+          </div>
+        }
+      </div>
+      <div class="cart-summary">
+        <div>Total Value: ${{ calculateCartTotal() | number : '1.2-2' }}</div>
+        <button class="checkout-btn" (click)="checkout()">Checkout</button>
+      </div>
     }
+  </div>
 }
