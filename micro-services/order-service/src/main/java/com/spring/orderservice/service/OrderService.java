@@ -7,6 +7,8 @@ import com.spring.orderservice.model.Order;
 import com.spring.orderservice.model.Transaction;
 import org.springframework.stereotype.Service;
 
+import java.util.stream.Collectors;
+
 
 @Service
 public class OrderService {
@@ -42,8 +44,16 @@ public class OrderService {
             return "Order cannot be processed due to invalid card details";
         }
 
-        transactionService.saveTransaction(new Transaction(transactionId, "SUCCESS", "", order.getCart().purchaseOrderItems().keySet().toString()));
+        String keysAsString = order.getCart().purchaseOrderItems().keySet()
+                .stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(","));
+        transactionService.saveTransaction(new Transaction(transactionId, "SUCCESS", "", keysAsString));
 
         return "Order Processed Successfully " + transactionId  + "Payment info: " +  payment;
     }
+
+
+
+
 }

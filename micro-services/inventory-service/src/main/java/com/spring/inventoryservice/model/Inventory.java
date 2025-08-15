@@ -18,4 +18,6 @@ public class Inventory {
     private Long id;
     @Column(nullable = false)
     private int quantity;
+
+
 }

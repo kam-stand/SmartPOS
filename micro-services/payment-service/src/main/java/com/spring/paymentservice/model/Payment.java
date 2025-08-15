@@ -13,7 +13,6 @@ import java.util.Date;
 @Data
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 public class Payment {
 
     @Id
@@ -23,5 +22,12 @@ public class Payment {
     private String status;
     private String transactionId;
     double amount;
+
+    public Payment(Date paymentDate, String status, String transactionId, double amount) {
+        this.paymentDate = paymentDate;
+        this.status = status;
+        this.transactionId = transactionId;
+        this.amount = amount;
+    }
 
 }

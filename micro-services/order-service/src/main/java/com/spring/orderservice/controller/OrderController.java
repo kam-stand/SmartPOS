@@ -3,8 +3,10 @@ package com.spring.orderservice.controller;
 
 import com.spring.orderservice.model.Order;
 import com.spring.orderservice.service.OrderService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,9 +26,6 @@ public class OrderController {
         return orderService.processOrder(order);
     }
 
-    @GetMapping("")
-    public String getAllOrders() {
-        return "All Orders";
-    }
+
 
 }
