@@ -1,6 +1,6 @@
-package com.spring.orderservice.model;
+package com.spring.paymentservice.model;
 
-public record Payment(
+public record CreditCard(
         String email,
         String cardNumber,
         String cardHolderName,
@@ -8,4 +8,6 @@ public record Payment(
         String expiryYear,
         String cvv,
         double amt
-) {}
+
+) {
+}

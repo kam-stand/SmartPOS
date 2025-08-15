@@ -2,6 +2,7 @@ package com.spring.productservice.controller;
 
 import com.spring.productservice.model.Product;
 import com.spring.productservice.service.ProductService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,11 @@ public class ProductController {
     @GetMapping("{id}")
     public Product getProductById(@PathVariable Long id) {
         return productService.getProductById(id);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<?> getProductsByList(@RequestBody List<Long> ids){
+        return ResponseEntity.ok(productService.getProductsByList(ids));
     }
 
     @PostMapping("")

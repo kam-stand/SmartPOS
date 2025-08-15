@@ -36,5 +36,11 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
+    public List<String> getProductsByList(List<Long> ids){
+//        get all of the products name by the given ids
+        List<Product> products = productRepository.findAllById(ids);
+        return products.stream().map(Product::getName).toList();
+    }
+
 
 }

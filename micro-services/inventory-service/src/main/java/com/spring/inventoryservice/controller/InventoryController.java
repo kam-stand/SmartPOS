@@ -55,6 +55,6 @@ public class InventoryController {
             return ResponseEntity.badRequest().body(result);
         }
 
-        return ResponseEntity.ok("Order processed successfully. Transaction ID: " + result);
+        return ResponseEntity.ok(result);
     }
 }

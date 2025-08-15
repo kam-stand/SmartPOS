@@ -18,11 +18,15 @@ spring:
         - id: inventory-service
           uri: lb://INVENTORY-SERVICE
           predicates:
-              - Path=/inventory/**
+            - Path=/inventory/**
         - id: order-service
           uri: lb://ORDER-SERVICE
           predicates:
-              - Path=/orders/**
+            - Path=/orders/**
+        - id: payment-service
+          uri: lb://PAYMENT-SERVICE
+          predicates:
+            - Path=/payments/**
       globalcors:
         corsConfigurations:
           '[/**]':
