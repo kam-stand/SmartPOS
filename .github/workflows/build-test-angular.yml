@@ -33,8 +33,7 @@ jobs:
           image: kamhassan/smartpos-angular
           tags: latest,${{ env.branch_tag }}
           registry: docker.io
-          dockerfile: Dockerfile
-          context: smart-pos-fronted
+          dockerfile: smart-pos-frontend/Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
