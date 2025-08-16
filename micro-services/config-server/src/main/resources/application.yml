@@ -1,12 +1,11 @@
 spring:
+  application:
+    name: config-server
   cloud:
     config:
       server:
-        native:
-          search-locations: classpath:/config-repo
-  profiles:
-    active: native
-  application:
-    name: config-server
+        git:
+          uri: https://github.com/kam-stand/SmartPOS-configs
+          default-label: main
 server:
   port: 8888
