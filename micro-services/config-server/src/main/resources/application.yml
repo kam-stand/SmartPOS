@@ -6,6 +6,6 @@ spring:
       server:
         git:
           uri: https://github.com/kam-stand/SmartPOS-configs
-          default-label: main
+          default-label: dev
 server:
   port: 8888
