@@ -2,5 +2,8 @@ spring:
   application:
     name: inventory-service
   config:
-    import: optional:configserver:http://localhost:8888
-debug: true
+    import: "configserver:http://localhost:8888"
+
+logging:
+  level:
+    root: INFO
