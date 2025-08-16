@@ -1,51 +1,69 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment.development';
-import { DecimalPipe } from '@angular/common';
-interface product {
-    id: number ;
-    name: string ;
-    category: string ;
-    brand: string ;
-    description: string ;
-    price: number ;
+import { CommonModule, DecimalPipe } from '@angular/common';
+import { FormsModule, NgForm } from '@angular/forms';
+interface Product {
+  id: number;
+  name: string;
+  category: string;
+  brand: string;
+  description: string;
+  price: number;
 }
 
-interface cart {
-  product_id: Number;
-  quantity: Number;
+interface Cart {
+  purchaseOrderItems: { [productId: number]: number };
+}
+
+interface Payment {
+  email: string;
+  cardNumber: string;
+  cardHolderName: string;
+  expiryMonth: string;
+  expiryYear: string;
+  cvv: string;
+  amt: number;
+}
+
+interface Order {
+  cart: Cart;
+  payment: Payment;
 }
 
 @Component({
   selector: 'app-products',
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, FormsModule, CommonModule],
   templateUrl: './products.html',
-  styleUrl: './products.css'
+  styleUrls: ['./products.css']
 })
 export class Products {
-$product: any;
+  productList: Product[] = [];
+  cart: Map<Product, number> = new Map();
 
-  constructor(private http: HttpClient){}
+  // Payment form fields
+  email = '';
+  cardNumber = '';
+  cardHolderName = '';
+  expiryMonth = '';
+  expiryYear = '';
+  cvv = '';
 
-  productList: product[] = []
-  
-    ngOnInit(): void {
-    this.http.get<product[]>('http://localhost:8060/products')
+  constructor(private http: HttpClient) {}
+
+  productTrackBy(index: number, item: [Product, number]): number {
+  return item[0].id; // track by product ID
+}
+
+  ngOnInit(): void {
+    this.http.get<Product[]>('http://localhost:8060/products')
       .subscribe({
-        next: (data) => {
-          this.productList = data;
-        },
-        error: (err) => {
-          console.error('Error fetching products:', err);
-        }
+        next: (data) => this.productList = data,
+        error: (err) => console.error('Error fetching products:', err)
       });
-
   }
 
-
-  cart: Map<product, number> = new Map();
-
-  addToCart(product: product) {
+  // CART LOGIC
+  addToCart(product: Product) {
     if (this.cart.has(product)) {
       this.cart.set(product, this.cart.get(product)! + 1);
     } else {
@@ -53,44 +71,72 @@ $product: any;
     }
   }
 
-
-removeFromCart(product: product) {
+  removeFromCart(product: Product) {
     if (this.cart.has(product)) {
-        const qty = this.cart.get(product)! - 1;
-        if (qty > 0) {
-            this.cart.set(product, qty);
-        } else {
-            this.cart.delete(product);
-        }
+      const qty = this.cart.get(product)! - 1;
+      if (qty > 0) {
+        this.cart.set(product, qty);
+      } else {
+        this.cart.delete(product);
+      }
     }
-}
+  }
 
-
-get cartItems() {
-  return Array.from(this.cart.entries()); // [ [product_id, quantity], ... ]
-}
-
-printCartItems = () =>{
-  this.cart.forEach((value, key) => {
-      const total:Number = key.price * value;
-      console.log(`Name: ${key.name}, Per: ${key.price} Qty: ${value}, Total: ${total}`);
-  })
-}
-
+  get cartItems() {
+    return Array.from(this.cart.entries()); // [ [product, quantity], ... ]
+  }
 
   calculateCartTotal(): number {
-    let total = 0; //
-    this.cart.forEach((quantity, product) => { //
-      total += product.price * quantity; //
+    let total = 0;
+    this.cart.forEach((quantity, product) => {
+      total += product.price * quantity;
     });
-    return total; //
+    return total;
   }
 
-    checkout() {
-    alert('Proceeding to checkout!');
-    // In a real application, you would navigate to a checkout page,
-    // send cart data to a backend, etc.
+  printCartItems() {
+    this.cart.forEach((value, key) => {
+      const total = key.price * value;
+      console.log(`Name: ${key.name}, Price: ${key.price}, Qty: ${value}, Total: ${total}`);
+    });
   }
-  
 
+  // CHECKOUT
+  checkout(form: NgForm) {
+  if (this.cart.size === 0) {
+    alert('Cart is empty!');
+    return;
+  }
+
+    
+
+    const purchaseOrderItems: { [key: number]: number } = {};
+    this.cart.forEach((quantity, product) => {
+      purchaseOrderItems[product.id] = quantity;
+    });
+
+    const cart: Cart = { purchaseOrderItems };
+    const payment: Payment = {
+      email: this.email,
+      cardNumber: this.cardNumber,
+      cardHolderName: this.cardHolderName,
+      expiryMonth: this.expiryMonth,
+      expiryYear: this.expiryYear,
+      cvv: this.cvv,
+      amt: this.calculateCartTotal()
+    };
+
+    const order: Order = { cart, payment };
+    this.http.post('http://localhost:8060/orders', order, { responseType: 'text' })
+  .subscribe({
+    next: (res) => {
+      console.log('Order placed successfully', res);
+      alert(res);
+      form.reset()
+      this.cart.clear();
+    },
+    error: (err) => console.error('Error placing order', err)
+  });
+
+  }
 }

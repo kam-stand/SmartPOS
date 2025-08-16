@@ -9,6 +9,12 @@
     <div (click)="changeView('orders')">
       <h2>Orders</h2>
     </div>
+    <div (click)="changeView('payments')">
+      <h2>Payments</h2>
+    </div>
+    <div (click)="changeView('inventory')">
+      <h2>Inventory</h2>
+    </div>
   </div>
   <div class="app-view">
     @switch (view) {
@@ -18,7 +24,15 @@
       }
       @case ("orders") {
         <!-- Content for the Orders view goes here -->
-        <p>This is the Orders section.</p>
+        <app-orders></app-orders>
+      }
+
+      @case ("payments") {
+        <p>View for payments</p>
+      }
+
+      @case ("inventory") {
+        <p>View for inventory</p>
       }
       @default {
         <!-- Optional: A default view if nothing matches -->

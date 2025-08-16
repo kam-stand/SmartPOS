@@ -1,0 +1,21 @@
+<div *ngIf="loading">Loading transactions...</div>
+<div *ngIf="errorMessage">{{ errorMessage }}</div>
+
+<div *ngIf="!loading && transactionItems.length === 0">
+  <h2>No transactions found.</h2>
+</div>
+
+<div *ngIf="transactionItems.length > 0" class="transaction-container">
+  <div class="transaction-item" *ngFor="let tx of transactionItems">
+    <div>
+      <strong>Status:</strong>
+      <span class="status {{ tx.status }}">{{ tx.status }}</span>
+    </div>
+    <div><strong>Transaction ID:</strong> {{ tx.transactionId }}</div>
+    <div><strong>Message:</strong> {{ tx.message }}</div>
+    <div>
+      <strong>Items:</strong>
+      <div class="items">{{ tx.items }}</div>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { Products } from './products/products';
+import { Orders } from "./orders/orders";
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-root',
-  imports: [Products],
+  imports: [Products, Orders, FormsModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

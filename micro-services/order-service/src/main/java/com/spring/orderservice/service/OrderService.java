@@ -7,6 +7,8 @@ import com.spring.orderservice.model.Order;
 import com.spring.orderservice.model.Transaction;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 
@@ -28,29 +30,38 @@ public class OrderService {
         this.productClient = productClient;
     }
 
-
     public String processOrder(Order order) {
-
+        // Step 1: Check and update inventory
         String transactionId = inventoryClient.checkAndUpdateInventory(order.getCart());
-
         if (transactionId.startsWith("Order Cannot be processed")) {
-
             return transactionId;
         }
 
-        String payment = paymentClient.processPayment(order.getPayment(), transactionId);
-        if (payment.startsWith("INVALID CVV") || payment.startsWith("INVALID EXPIRY YEAR")) {
-
+        // Step 2: Process payment
+        String paymentResponse = paymentClient.processPayment(order.getPayment(), transactionId);
+        if (paymentResponse.startsWith("INVALID CVV") || paymentResponse.startsWith("INVALID EXPIRY YEAR")) {
             return "Order cannot be processed due to invalid card details";
         }
 
-        String keysAsString = order.getCart().purchaseOrderItems().keySet()
+        // Step 3: Generate random order status
+        String randomStatus = List.of("SUCCESS", "PROGRESS", "DELAYED")
+                .get(ThreadLocalRandom.current().nextInt(3));
+
+        // Step 4: Build cart items string
+        String cartItems = order.getCart()
+                .purchaseOrderItems()
+                .keySet()
                 .stream()
                 .map(String::valueOf)
                 .collect(Collectors.joining(","));
-        transactionService.saveTransaction(new Transaction(transactionId, "SUCCESS", "", keysAsString));
 
-        return "Order Processed Successfully " + transactionId  + "Payment info: " +  payment;
+        // Step 5: Save transaction
+        Transaction transaction = new Transaction(transactionId, randomStatus, "", cartItems);
+        transactionService.saveTransaction(transaction);
+
+        // Step 6: Return final response
+        return String.format("Order Processed Successfully. Transaction ID: %s, Payment Info: %s",
+                transactionId, paymentResponse);
     }
 
 

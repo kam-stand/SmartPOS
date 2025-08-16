@@ -28,7 +28,8 @@
     height: fit-content;
     background-color: dodgerblue;
     color: white;
-    width: 110px;
+    width: 120px;
+    margin: 15px;
     align-items: center;
     align-content: center;
     display: flex;

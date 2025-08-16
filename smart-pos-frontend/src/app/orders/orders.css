@@ -1,0 +1,82 @@
+.transaction-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  width: 90%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.transaction-item {
+  padding: 16px 20px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: linear-gradient(135deg, #fdf6fb, #f0f8ff);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.transaction-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.transaction-item div {
+  margin-bottom: 6px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.transaction-item strong {
+  color: #222;
+  width: 120px;
+  flex-shrink: 0;
+}
+
+/* Status badges */
+.status {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  display: inline-block;
+  text-transform: uppercase;
+}
+
+.status.SUCCESS {
+  background-color: #28a745; /* green */
+}
+
+.status.PROGRESS {
+  background-color: #ffc107; /* yellow/orange */
+  color: #212529; /* dark text for contrast */
+}
+
+.status.DELAYED {
+  background-color: #dc3545; /* red */
+}
+
+/* Items box styling */
+.items {
+  background-color: #f1f4f8;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #555;
+  margin-left: 4px;
+  flex: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .transaction-item {
+    padding: 12px 14px;
+  }
+
+  .transaction-item strong {
+    width: 100px;
+  }
+}

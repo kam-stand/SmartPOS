@@ -1,17 +1,16 @@
-@if (productList.length == 0) {
-<div>
+<div *ngIf="productList.length === 0">
   <h1>Currently no products created</h1>
 </div>
-} @else {
-<div class="product-container">
-  @for (product of productList; track product.id) {
+
+<div *ngIf="productList.length > 0" class="product-container">
+  @for (product of productList; track product.id){
   <div class="product-info">
-    <div>{{ product.id }}</div>
-    <div>{{ product.name }}</div>
-    <div>{{ product.brand }}</div>
-    <div>${{ product.price }}</div>
+    <div class="id">{{ product.id }}</div>
+    <div class="name">{{ product.name }}</div>
+    <div class="brand">{{ product.brand }}</div>
+    <div class="price">${{ product.price | number:'1.2-2' }}</div>
     <div>{{ product.description }}</div>
-    <div>{{ product.category }}</div>
+    <div class="category">{{ product.category }}</div>
     <div>
       <button class="add-to-cart-btn" (click)="addToCart(product)">+</button>
     </div>
@@ -19,29 +18,59 @@
       <button class="remove-to-cart-btn" (click)="removeFromCart(product)">-</button>
     </div>
   </div>
-
-  }
+}
 </div>
 
-  <div class="cart-section">
-    <h2>Cart</h2>
-    @if (cart.size === 0) {
-      <div class="empty-cart-message">Your cart is empty.</div>
-    } @else {
-      <div class="cart-items-container">
-        @for (item of cartItems; track item[0].id) {
-          <div class="cart-item">
-            <div>{{ item[0].name }}</div>
-            <div>Per: ${{ item[0].price | number : '1.2-2' }}</div> 
-            <div>Qty: {{ item[1] }}</div> 
-            <div>Total: ${{ (item[0].price * item[1]) | number : '1.2-2' }}</div>
-          </div>
-        }
-      </div>
-      <div class="cart-summary">
-        <div>Total Value: ${{ calculateCartTotal() | number : '1.2-2' }}</div>
-        <button class="checkout-btn" (click)="checkout()">Checkout</button>
-      </div>
-    }
+<div class="cart-section">
+  <h2>Cart</h2>
+
+  <div *ngIf="cart.size === 0" class="empty-cart-message">
+    Your cart is empty.
   </div>
-}
+
+  <div *ngIf="cart.size > 0">
+    <div *ngFor="let item of cartItems; trackBy: productTrackBy" class="cart-item">
+      <div>{{ item[0].name }}</div>
+      <div>Per: ${{ item[0].price | number:'1.2-2' }}</div>
+      <div>Qty: {{ item[1] }}</div>
+      <div>Total: ${{ (item[0].price * item[1]) | number:'1.2-2' }}</div>
+    </div>
+
+  </div>
+
+  <div class="cart-summary">
+    <div>Total Value: ${{ calculateCartTotal() | number:'1.2-2' }}</div>
+  </div>
+
+  <!-- CHECKOUT FORM -->
+<form #checkoutForm="ngForm" (ngSubmit)="checkout(checkoutForm)">
+  <h3>Payment Info</h3>
+  <div>
+    <label>Email:</label>
+    <input type="email" [(ngModel)]="email" name="email" required>
+  </div>
+  <div>
+    <label>Card Number:</label>
+    <input type="text" [(ngModel)]="cardNumber" name="cardNumber" required maxlength="16">
+  </div>
+  <div>
+    <label>Card Holder Name:</label>
+    <input type="text" [(ngModel)]="cardHolderName" name="cardHolderName" required>
+  </div>
+  <div>
+    <label>Expiry Month:</label>
+    <input type="text" [(ngModel)]="expiryMonth" name="expiryMonth" required maxlength="2">
+  </div>
+  <div>
+    <label>Expiry Year:</label>
+    <input type="text" [(ngModel)]="expiryYear" name="expiryYear" required maxlength="4">
+  </div>
+  <div>
+    <label>CVV:</label>
+    <input type="text" [(ngModel)]="cvv" name="cvv" required maxlength="3">
+  </div>
+
+  <button type="submit" class="checkout-btn">Checkout</button>
+</form>
+
+</div>

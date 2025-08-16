@@ -25,10 +25,7 @@ public class TransactionController {
         return ResponseEntity.ok(transactionService.getTransactionById(transactionId));
     }
 
-    @GetMapping("/ids")
-    public ResponseEntity<?> getTransactionIds() {
-        return ResponseEntity.ok(transactionService.GetTransactionProductNames());
-    }
+
 
 
 }

@@ -42,29 +42,4 @@ public class TransactionService {
     }
 
 
-
-    public String GetTransactionProductNames(){
-        List<Transaction> transactions = transactionRepository.findAll();
-
-        StringBuilder result = new StringBuilder();
-
-        for (Transaction t : transactions) {
-            // Split items string and convert to Long
-            List<Long> productIds = Arrays.stream(t.getItems().split(","))
-                    .map(Long::valueOf)
-                    .collect(Collectors.toList());
-
-            // Call the product service via Feign client to get product names
-            String productNames = productClient.getAllProducts(productIds);
-
-            // Append to the result
-            result.append(t.getTransactionId())
-                    .append(": ")
-                    .append(productNames)
-                    .append("\n");
-        }
-
-        return result.toString();
-    }
-
 }
