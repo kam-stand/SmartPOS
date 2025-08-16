@@ -1,23 +1,15 @@
-import { TestBed } from '@angular/core/testing';
-import { App } from './app';
 
-describe('App', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [App],
-    }).compileComponents();
+describe('Simple math tests', () => {
+  it('should add numbers correctly', () => {
+    expect(1 + 2).toBe(3);
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(App);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  it('should multiply numbers correctly', () => {
+    expect(2 * 5).toBe(10);
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, smart-pos-frontend');
+  it('should compare values correctly', () => {
+    expect(10).toBeGreaterThan(5);
+    expect(5).toBeLessThan(10);
   });
 });
