@@ -13,3 +13,7 @@ services:
     image: eureka-server
     build: .
     restart: always
+
+networks:
+  smartpos-network:
+    driver: bridge
