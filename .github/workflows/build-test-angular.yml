@@ -8,32 +8,37 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: smart-pos-frontend
     steps:
       # 1️⃣ Checkout repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2️⃣ Set up Docker tags (branch + short SHA)
-      - name: Set up Docker tags
-        id: docker-tags
+      # 2️⃣ Check working directory
+      - name: Check working directory
         run: |
-          cd smart-pos-frontend
-          SHORT_SHA=${GITHUB_SHA::7}
-          BRANCH_NAME=${GITHUB_REF##*/}
-          BRANCH_NAME=${BRANCH_NAME//\//-}
-          echo "branch_tag=$BRANCH_NAME-$SHORT_SHA" >> $GITHUB_ENV
+          ls
+          pwd
 
-      # 3️⃣ Build and push Docker image
+      # 3️⃣ Docker Login
+      - name: Docker Login
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      # 4️⃣ Build and push Docker image
       - name: Build and push Docker image
-        uses: mr-smithers-excellent/docker-build-push@v6
-        with:
-          image: kamhassan/smartpos-angular
-          tags: latest,${{ env.branch_tag }}
-          registry: docker.io
-          dockerfile: smart-pos-frontend/Dockerfile
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+        env:
+          DOCKER_REPO: kamhassan/smartpos-angular
+          BASE_TAG: latest
+        run: |
+          SHORT_SHA=$(echo "${GITHUB_SHA}" | cut -c1-7)
+          IMAGE_TAG="${BASE_TAG}-${SHORT_SHA}"
 
-      # ✅ Optional: Add a step to logout from Docker for security
-      - name: Logout from Docker
-        run: docker logout
+          echo "Building Docker image with tag: $DOCKER_REPO:$IMAGE_TAG"
+          docker build -t $DOCKER_REPO:$IMAGE_TAG .
+
+          echo "Pushing image to Docker Hub..."
+          docker push $DOCKER_REPO:$IMAGE_TAG
+
+          echo "::notice::Docker image pushed: $DOCKER_REPO:$IMAGE_TAG"
