@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: smart-pos-frontend  # only affects run: steps
+        working-directory: smart-pos-frontend
+
     steps:
       # 1️⃣ Checkout repository
       - name: Checkout code
@@ -21,7 +22,7 @@ jobs:
         id: docker-tags
         run: |
           SHORT_SHA=${GITHUB_SHA::7}
-          BRANCH_NAME=${GITHUB_REF##*/} 
+          BRANCH_NAME=${GITHUB_REF##*/}
           BRANCH_NAME=${BRANCH_NAME//\//-}
           echo "branch_tag=$BRANCH_NAME-$SHORT_SHA" >> $GITHUB_ENV
 
@@ -30,8 +31,12 @@ jobs:
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
           image: kamhassan/smartpos-angular
-          tags: latest,${{ env.branch_tag }}       # ✅ comma-separated fixes multi-line issue
+          tags: latest,${{ env.branch_tag }}
           registry: docker.io
-          dockerfile: smart-pos-frontend/Dockerfile  # ✅ full path to Dockerfile
+          dockerfile: smart-pos-frontend/Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # ✅ Optional: Add a step to logout from Docker for security
+      - name: Logout from Docker
+        run: docker logout
