@@ -1,0 +1,112 @@
+#
+#name:  build and test java config-server
+#
+#on:
+#  push:
+#    branches:
+#      - main
+#jobs:
+#  build-deploy:
+#    name: Build java application
+#    runs-on: ubuntu-latest
+#    defaults:
+#      run:
+#        working-directory: micro-services/config-server
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#      - name: Print working directory
+#        run: |
+#          echo "The working directory is: $(pwd)"
+#      - name: Set up JDK 21 (lightweight)
+#        uses: actions/setup-java@v3
+#        with:
+#          distribution: temurin
+#          java-version: 21
+#      - name: Build and test Java project
+#        run: |
+#          mvn clean verify && mvn package
+#          ls ./target
+#      - name: Login to Docker hub
+#        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+#
+#      - name: Build and push to Docker hub
+#
+#        env:
+#          DOCKER_REPO: kamhassan/smartpos-configserver
+#          BASE_TAG: latest
+#        run: |
+#          SHORT_SHA=$(echo "${GITHUB_SHA}" | cut -c1-7)
+#          IMAGE_TAG="${BASE_TAG}-${SHORT_SHA}"
+#
+#          echo "Building Docker image with tag: $DOCKER_REPO:$IMAGE_TAG"
+#          docker build -t $DOCKER_REPO:$IMAGE_TAG .
+#
+#          echo "Pushing image to Docker Hub..."
+#          docker push $DOCKER_REPO:$IMAGE_TAG
+#
+#          echo "::notice::Docker image pushed: $DOCKER_REPO:$IMAGE_TAG"
+#
+#
+#
+#
+#
+#
+name: Build and Test Java Config-Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    name: Build Java Application
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: micro-services/config-server
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Print working directory
+        run: |
+          echo "The working directory is: $(pwd)"
+
+      - name: Set up JDK 21 (lightweight)
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build and test Java project
+        run: |
+          mvn clean verify
+          ls ./target
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build and push Docker image
+        env:
+          DOCKER_REPO: kamhassan/smartpos-configserver
+          BASE_TAG: latest
+        run: |
+          SHORT_SHA=$(echo "${GITHUB_SHA}" | cut -c1-7)
+          IMAGE_TAG="${BASE_TAG}-${SHORT_SHA}"
+
+          echo "Building Docker image with tag: $DOCKER_REPO:$IMAGE_TAG"
+          docker build -t $DOCKER_REPO:$IMAGE_TAG .
+
+          echo "Pushing image to Docker Hub..."
+          docker push $DOCKER_REPO:$IMAGE_TAG
+
