@@ -8,10 +8,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: smart-pos-frontend
-
     steps:
       # 1️⃣ Checkout repository
       - name: Checkout code
@@ -21,6 +17,7 @@ jobs:
       - name: Set up Docker tags
         id: docker-tags
         run: |
+          cd smart-pos-frontend
           SHORT_SHA=${GITHUB_SHA::7}
           BRANCH_NAME=${GITHUB_REF##*/}
           BRANCH_NAME=${BRANCH_NAME//\//-}
