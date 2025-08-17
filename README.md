@@ -56,7 +56,9 @@ cd SmartPOS
 cd micro-services
 
 # Build all services
-./mvnw clean install
+chmod -x ./build-microservices.sh
+
+./build-microservices.sh
 
 # Run with Docker Compose
 docker-compose up -d

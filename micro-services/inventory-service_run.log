@@ -1,0 +1,115 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< com.spring:inventory-service >--------------------
+[INFO] Building inventory-service 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.5.4:run (default-cli) > test-compile @ inventory-service >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ inventory-service ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ inventory-service ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ inventory-service ---
+[INFO] skip non existing resourceDirectory /home/kamhassan/Desktop/Projects/SmartPOS/micro-services/inventory-service/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ inventory-service ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:3.5.4:run (default-cli) < test-compile @ inventory-service <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.5.4:run (default-cli) @ inventory-service ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.4)
+
+2025-08-16T22:37:51.356-04:00  INFO 36812 --- [inventory-service] [           main] c.s.i.InventoryServiceApplication        : Starting InventoryServiceApplication using Java 21.0.7 with PID 36812 (/home/kamhassan/Desktop/Projects/SmartPOS/micro-services/inventory-service/target/classes started by kamhassan in /home/kamhassan/Desktop/Projects/SmartPOS/micro-services/inventory-service)
+2025-08-16T22:37:51.358-04:00  INFO 36812 --- [inventory-service] [           main] c.s.i.InventoryServiceApplication        : No active profile set, falling back to 1 default profile: "default"
+2025-08-16T22:37:51.403-04:00  INFO 36812 --- [inventory-service] [           main] o.s.c.c.c.ConfigServerConfigDataLoader   : Fetching config from server at : http://localhost:8888
+2025-08-16T22:37:51.403-04:00  INFO 36812 --- [inventory-service] [           main] o.s.c.c.c.ConfigServerConfigDataLoader   : Located environment: name=inventory-service, profiles=[default], label=null, version=9fb863bef91a2c51304a5281954b948fafa1df27, state=
+2025-08-16T22:37:51.994-04:00  INFO 36812 --- [inventory-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-16T22:37:52.112-04:00  INFO 36812 --- [inventory-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 110 ms. Found 1 JPA repository interface.
+2025-08-16T22:37:52.298-04:00  INFO 36812 --- [inventory-service] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=0f8d820a-ce6e-37e9-a59f-9b0f94175a3f
+2025-08-16T22:37:52.646-04:00  INFO 36812 --- [inventory-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8042 (http)
+2025-08-16T22:37:52.681-04:00  INFO 36812 --- [inventory-service] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-08-16T22:37:52.681-04:00  INFO 36812 --- [inventory-service] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-08-16T22:37:52.743-04:00  INFO 36812 --- [inventory-service] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-08-16T22:37:52.746-04:00  INFO 36812 --- [inventory-service] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1339 ms
+2025-08-16T22:37:53.025-04:00  INFO 36812 --- [inventory-service] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-16T22:37:53.097-04:00  INFO 36812 --- [inventory-service] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-08-16T22:37:53.134-04:00  INFO 36812 --- [inventory-service] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-08-16T22:37:53.433-04:00  INFO 36812 --- [inventory-service] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-16T22:37:53.462-04:00  INFO 36812 --- [inventory-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-08-16T22:37:53.654-04:00  INFO 36812 --- [inventory-service] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:inventorydb user=SA
+2025-08-16T22:37:53.656-04:00  INFO 36812 --- [inventory-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-08-16T22:37:53.680-04:00  WARN 36812 --- [inventory-service] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-16T22:37:53.698-04:00  INFO 36812 --- [inventory-service] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-16T22:37:54.524-04:00  INFO 36812 --- [inventory-service] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: drop table if exists inventory cascade 
+Hibernate: create table inventory (quantity integer not null, id bigint not null, primary key (id))
+2025-08-16T22:37:54.563-04:00  INFO 36812 --- [inventory-service] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-16T22:37:54.904-04:00  WARN 36812 --- [inventory-service] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-16T22:37:55.638-04:00  INFO 36812 --- [inventory-service] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:inventorydb'
+2025-08-16T22:37:55.846-04:00  INFO 36812 --- [inventory-service] [           main] DiscoveryClientOptionalArgsConfiguration : Eureka HTTP Client uses RestTemplate.
+2025-08-16T22:37:55.894-04:00  WARN 36812 --- [inventory-service] [           main] iguration$LoadBalancerCaffeineWarnLogger : Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2025-08-16T22:37:55.928-04:00  INFO 36812 --- [inventory-service] [           main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2025-08-16T22:37:55.961-04:00  INFO 36812 --- [inventory-service] [           main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2025-08-16T22:37:55.965-04:00  INFO 36812 --- [inventory-service] [           main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2025-08-16T22:37:55.975-04:00  INFO 36812 --- [inventory-service] [           main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2025-08-16T22:37:55.976-04:00  INFO 36812 --- [inventory-service] [           main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2025-08-16T22:37:55.976-04:00  INFO 36812 --- [inventory-service] [           main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2025-08-16T22:37:55.976-04:00  INFO 36812 --- [inventory-service] [           main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2025-08-16T22:37:55.976-04:00  INFO 36812 --- [inventory-service] [           main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2025-08-16T22:37:55.976-04:00  INFO 36812 --- [inventory-service] [           main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2025-08-16T22:37:55.976-04:00  INFO 36812 --- [inventory-service] [           main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2025-08-16T22:37:56.314-04:00  INFO 36812 --- [inventory-service] [           main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2025-08-16T22:37:56.315-04:00  INFO 36812 --- [inventory-service] [           main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2025-08-16T22:37:56.317-04:00  INFO 36812 --- [inventory-service] [           main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2025-08-16T22:37:56.319-04:00  INFO 36812 --- [inventory-service] [           main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1755398276318 with initial instances count: 0
+2025-08-16T22:37:56.323-04:00  INFO 36812 --- [inventory-service] [           main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application INVENTORY-SERVICE with eureka with status UP
+2025-08-16T22:37:56.323-04:00  INFO 36812 --- [inventory-service] [           main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1755398276323, current=UP, previous=STARTING]
+2025-08-16T22:37:56.325-04:00  INFO 36812 --- [inventory-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_INVENTORY-SERVICE/kamsurface:inventory-service:8042: registering service...
+2025-08-16T22:37:56.352-04:00  INFO 36812 --- [inventory-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8042 (http) with context path '/'
+2025-08-16T22:37:56.353-04:00  INFO 36812 --- [inventory-service] [           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8042
+2025-08-16T22:37:56.368-04:00  INFO 36812 --- [inventory-service] [           main] c.s.i.InventoryServiceApplication        : Started InventoryServiceApplication in 6.156 seconds (process running for 6.665)
+2025-08-16T22:37:56.379-04:00  INFO 36812 --- [inventory-service] [foReplicator-%d] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_INVENTORY-SERVICE/kamsurface:inventory-service:8042 - registration status: 204
+2025-08-16T22:38:26.316-04:00  INFO 36812 --- [inventory-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2025-08-16T22:38:26.316-04:00  INFO 36812 --- [inventory-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2025-08-16T22:38:26.316-04:00  INFO 36812 --- [inventory-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2025-08-16T22:38:26.316-04:00  INFO 36812 --- [inventory-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2025-08-16T22:38:26.317-04:00  INFO 36812 --- [inventory-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2025-08-16T22:38:26.317-04:00  INFO 36812 --- [inventory-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Application version is -1: false
+2025-08-16T22:38:26.317-04:00  INFO 36812 --- [inventory-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2025-08-16T22:38:26.330-04:00  INFO 36812 --- [inventory-service] [reshExecutor-%d] com.netflix.discovery.DiscoveryClient    : The response status is 200
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  03:05 min
+[INFO] Finished at: 2025-08-16T22:40:52-04:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.5.4:run (default-cli) on project inventory-service: Process terminated with exit code: 137 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
