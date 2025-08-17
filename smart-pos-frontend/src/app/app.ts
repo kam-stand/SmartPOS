@@ -2,11 +2,13 @@ import { Component, signal } from '@angular/core';
 import { Products } from './products/products';
 import { Orders } from "./orders/orders";
 import { FormsModule } from '@angular/forms';
+import { Inventory } from "./inventory/inventory";
+import { Payments } from './payments/payments';
 
 
 @Component({
   selector: 'app-root',
-  imports: [Products, Orders, FormsModule],
+  imports: [Products, Orders, FormsModule, Inventory, Payments],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

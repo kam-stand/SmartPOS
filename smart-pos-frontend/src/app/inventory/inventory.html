@@ -1,0 +1,15 @@
+<div class="inventory-container">
+    <h1>Inventory</h1>
+    @for (inventory of inventoryList; track inventory.id) {
+
+        <div class="inventory-info">
+            <div class="id">
+              ID: {{inventory.id}}
+            </div>
+            <div class="qty">
+                QTY: {{inventory.quantity}}
+            </div>
+        </div>
+
+    }
+</div>
